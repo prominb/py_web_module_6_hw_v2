@@ -1,43 +1,43 @@
 -- Таблиця груп
-drop table if exists groups;
+DROP TABLE IF EXISTS groups CASCADE;
 CREATE TABLE groups (
   id SERIAL PRIMARY KEY,
   name VARCHAR(50) NOT NULL
 );
 
 -- Таблиця студентів
-drop table if exists students;
+DROP TABLE IF EXISTS students CASCADE;
 CREATE TABLE students (
   id SERIAL PRIMARY KEY,
   fullname VARCHAR(150) NOT NULL,
   group_id INTEGER REFERENCES groups(id)
-  	on delete cascade
+  	ON DELETE CASCADE
 );
 
 -- Таблиця викладачів
-drop table if exists teachers;
+DROP TABLE IF EXISTS teachers CASCADE;
 CREATE TABLE teachers (
   id SERIAL PRIMARY KEY,
   fullname VARCHAR(150) NOT NULL
 );
 
 -- Таблиця предметів
-drop table if exists subjects;
+DROP TABLE IF EXISTS subjects CASCADE;
 CREATE TABLE subjects (
   id SERIAL PRIMARY KEY,
   name VARCHAR(175) NOT NULL,
   teacher_id INTEGER  REFERENCES teachers(id)
-  	on delete cascade
+  	ON DELETE CASCADE
 );
 
 -- Таблиця оцінок
-drop table if exists grades;
+DROP TABLE IF EXISTS grades CASCADE;
 CREATE TABLE grades (
   id SERIAL PRIMARY KEY,
   student_id INTEGER  REFERENCES students(id)
-  on delete cascade,
+  ON DELETE CASCADE,
   subject_id INTEGER  REFERENCES subjects(id)
-  on delete cascade,
+  ON DELETE CASCADE,
   grade INTEGER CHECK (grade >= 0 AND grade <= 100),
   grade_date DATE NOT NULL
 );
