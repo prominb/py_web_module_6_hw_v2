@@ -6,8 +6,8 @@ from connect import create_connection
 
 def create_table(conn, sql_expression: str):
     """ create a table from the create_table_sql statement
-    :param sql_expression:
     :param conn: Connection object
+    :param sql_expression:
     :return:
     """
     c = conn.cursor()
@@ -22,26 +22,15 @@ def create_table(conn, sql_expression: str):
 
 
 def main():
-    # sql_create_users_table = """
-    # CREATE TABLE IF NOT EXISTS users (
-    #  id SERIAL PRIMARY KEY,
-    #  name VARCHAR(120),
-    #  email VARCHAR(120),
-    #  password VARCHAR(120),
-    #  age SMALLINT CHECK(age > 18 AND age < 75)
-    # );
-    # """
-
     try:
         # читаємо файл зі скриптом для створення БД
         with open('create-tables.sql', 'r', encoding="utf-8") as f:
             sql = f.read()
         # print(type(sql))
 
-        # створюємо з'єднання з БД (якщо файлу з БД немає, він буде створений)
+        # створюємо з'єднання з БД
         with create_connection() as conn:
             if conn is not None:
-                # create_table(conn, sql_create_users_table)
                 create_table(conn, sql)
             else:
                 print("Error! cannot create the database connection.")
