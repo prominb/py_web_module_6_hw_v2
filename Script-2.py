@@ -6,7 +6,7 @@ from connect import create_connection
 
 
 def select_script(conn, sql_expression: str):
-    """ Query SELECT script
+    """ Query SELECT script Знайти студента із найвищим середнім балом з певного предмета.
     :param conn: Connection object
     :param sql_expression:
     :return:

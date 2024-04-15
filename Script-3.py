@@ -6,7 +6,7 @@ from connect import create_connection
 
 
 def select_script(conn, sql_expression: str):
-    """ Query SELECT script Знайти 5 студентів із найбільшим середнім балом з усіх предметів.
+    """ Query SELECT script Знайти середній бал у групах з певного предмета.
     :param conn: Connection object
     :param sql_expression:
     :return:
@@ -26,7 +26,7 @@ def select_script(conn, sql_expression: str):
 def main():
     try:
         # читаємо файл зі скриптом
-        with open('Script-1.sql', 'r', encoding="utf-8") as f:
+        with open('Script-3.sql', 'r', encoding="utf-8") as f:
             sql = f.read()
 
         # створюємо з'єднання з БД
