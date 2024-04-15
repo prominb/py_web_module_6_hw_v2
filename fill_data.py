@@ -12,14 +12,6 @@ fake = Faker(locale='uk-UA')
 GROUPS = ("КІТ-122А", "КІТ-123Б", "КІТ-125А")
 STUDENTS = 50
 TEACHERS = 5
-# SUBJECTS = (
-#     "Системи штучного інтелекту",
-#     "Сучасне програмування, мобільні пристрої та комп’ютерні ігри",
-#     "Прикладна комп’ютерна інженерія",
-#     "Кібербезпека",
-#     "Автоматизація та комп’ютерно-інтегровані технології",
-#     "Метрологія та інформаційно-вимірювальна техніка",
-# )
 SUBJECTS = (
     ("Системи штучного інтелекту", 1),
     ("Сучасне програмування, мобільні пристрої та комп’ютерні ігри", 1),
@@ -72,7 +64,6 @@ def insert_subjects(conn, sql_expression: str):
     c = conn.cursor()
     try:
         for tuple_subject in SUBJECTS:
-            # teacher_id = randint(1, TEACHERS)
             c.execute(sql_expression, tuple_subject)
         conn.commit()
     except DatabaseError as e:
@@ -86,7 +77,7 @@ def insert_grades(conn, sql_expression: str):
     try:
         for student_id in range(1, STUDENTS + 1):
             for subject_id in range(1, len(SUBJECTS) + 1):
-                for _ in range(GRADES):
+                for _ in range(3):
                     grade = randint(1, 100)
                     grade_date = fake.date_between(start_date='-1y', end_date='today')
                     c.execute(sql_expression, (subject_id, student_id, grade, grade_date))
@@ -117,11 +108,11 @@ def main():
     try:
         with create_connection() as conn:
             if conn is not None:
-                # insert_groups(conn, sql_insert_groups)
-                # insert_students(conn, sql_insert_students)
+                insert_groups(conn, sql_insert_groups)
+                insert_students(conn, sql_insert_students)
                 insert_teachers(conn, sql_insert_teachers)
                 insert_subjects(conn, sql_insert_subjects)
-                # insert_grades(conn, sql_insert_grades)
+                insert_grades(conn, sql_insert_grades)
             else:
                 print("Error! cannot create the database connection.")
     except RuntimeError as err:
