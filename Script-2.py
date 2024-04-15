@@ -14,9 +14,8 @@ def select_script(conn, sql_expression: str):
     c = conn.cursor()
     try:
         c.execute(sql_expression)
-        result = c.fetchall()
-        for r in result:
-            print(r)
+        result = c.fetchone()
+        print(result)
     except DatabaseError as e:
         logging.error(e)
     finally:
@@ -26,7 +25,7 @@ def select_script(conn, sql_expression: str):
 def main():
     try:
         # читаємо файл зі скриптом
-        with open('Script-1.sql', 'r', encoding="utf-8") as f:
+        with open('Script-2.sql', 'r', encoding="utf-8") as f:
             sql = f.read()
 
         # створюємо з'єднання з БД
